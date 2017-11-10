@@ -3,6 +3,7 @@ package com.tony.server;
 import com.tony.client.NettyRemoteClient;
 import com.tony.common.MsgPackageDecoding;
 import com.tony.common.MsgPackageEncoding;
+import com.tony.common.NettyConnectHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -15,6 +16,7 @@ import io.netty.handler.codec.FixedLengthFrameDecoder;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
 import io.netty.handler.codec.LineBasedFrameDecoder;
+import io.netty.handler.timeout.IdleStateHandler;
 
 import java.net.InetSocketAddress;
 
@@ -46,6 +48,7 @@ public class NettyRemoteServer {
                                     //Encode
                                     ch.pipeline().addLast(new LengthFieldPrepender(2));
                                     ch.pipeline().addLast(new MsgPackageEncoding());
+                                    ch.pipeline().addLast(new NettyConnectHandler());
                                     ch.pipeline().addLast(new NettyServerHandler());
                                 }
                             });

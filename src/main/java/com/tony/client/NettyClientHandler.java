@@ -18,9 +18,6 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         user.setId("CHNHO00001");
         user.setName("Tony");
         for (int i = 0; i < 100; i++){
-//            byte[] req = user.getBytes();
-//            ByteBuf msg = Unpooled.buffer(req.length);
-//            msg.writeBytes(req);
             ctx.writeAndFlush(user);
         }
         System.out.println("send finish");
@@ -35,13 +32,5 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         System.out.println(msg);
     }
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        ctx.close();
-    }
 
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        ctx.close();
-    }
 }

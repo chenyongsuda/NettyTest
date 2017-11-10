@@ -1,7 +1,6 @@
 package com.tony.client;
 
-import com.tony.common.MsgPackageDecoding;
-import com.tony.common.MsgPackageEncoding;
+import com.tony.common.*;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
@@ -11,7 +10,6 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.LineBasedFrameDecoder;
 
 /**
  * Created by chnho02796 on 2017/10/31.
@@ -49,6 +47,7 @@ public class NettyRemoteClient{
                             //Encode
                             ch.pipeline().addLast(new LengthFieldPrepender(2));
                             ch.pipeline().addLast(new MsgPackageEncoding());
+                            ch.pipeline().addLast(new com.tony.common.NettyConnectHandler());
                             ch.pipeline().addLast(new NettyClientHandler());
                         }
                     });

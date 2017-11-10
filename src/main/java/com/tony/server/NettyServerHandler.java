@@ -16,11 +16,6 @@ import java.util.List;
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
-    public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("收到客户端");
-    }
-
-    @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 //        ByteBuf in = (ByteBuf) msg;
 //        byte[] req = new byte[in.readableBytes()];
@@ -32,22 +27,6 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
         User user = (User)msg;
         System.out.println(msg);
 //        ctx.writeAndFlush(user);
-    }
-
-    @Override
-    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-
-    }
-
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        ctx.close();
-    }
-
-    @Override
-    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        System.out.println("cause.getMessage() = " + cause.getMessage());
-        ctx.close();
     }
 
 }
